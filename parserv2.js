@@ -21,14 +21,14 @@ class parserV2 {
     return result;
   }
 
-  fixRefs(schema) {
+  resolveRefs(schema) {
     for (let item in schema) {
       const thisItem = schema[item];
       if (typeof thisItem === "object" && thisItem !== null) {
         if (thisItem.$ref) {
           schema[item] = this.resolveRef(thisItem.$ref);
         }
-        this.fixRefs(schema[item]);
+        this.resolveRefs(schema[item]);
       }
     }
   }
@@ -145,8 +145,6 @@ class parserV2 {
       schema: this.makeSchema(data),
       operationId: data.operationId || this.makeOperationId(operation, path)
     };
-    // schema refs need to be fixed from local schema to remote
-    this.fixRefs(route);
     this.config.routes.push(route);
   }
 
@@ -167,19 +165,22 @@ class parserV2 {
   }
 
   parse(swagger, schemaID) {
-    if (swagger.definitions !== undefined) {
-      this.addSchema({ definitions: swagger.definitions });
-    }
     for (let item in swagger) {
-      if (item === "paths") {
-        this.processPaths(swagger.basePath, swagger.paths);
-      } else {
-        this.config.generic[item] = swagger[item];
-        if (item === "basePath") {
-          this.config.prefix = swagger[item];
-        }
+      switch (item) {
+        case "paths":
+          this.processPaths(swagger.basePath, swagger.paths);
+          break;
+        case "definitions":
+          this.addSchema({ definitions: swagger.definitions });
+        default:
+          this.config.generic[item] = swagger[item];
+          if (item === "basePath") {
+            this.config.prefix = swagger[item];
+          }
       }
     }
+    // schema refs need to be resolved
+    this.resolveRefs(this.config.routes);
     return this.config;
   }
 }
