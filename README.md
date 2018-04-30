@@ -1,6 +1,6 @@
 # Fastify swagger code generator
 
-This repository contains an experiment to see if its possible to take a swagger file (v2) and autogenerate a configuration for fastify.
+This repository contains an experiment to see if its possible to take a swagger file (v2) and autogenerate a configuration for [fastify](https://www.fastify.io).
 
 The result is quite simple:
 
