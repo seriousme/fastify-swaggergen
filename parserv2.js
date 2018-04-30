@@ -47,11 +47,9 @@ class parserV2 {
     return opId;
   }
 
-  makeURL(base, path) {
+  makeURL(path) {
     // fastify wants 'path/:param' instead of swaggers 'path/{param}'
     return path.replace(/{(\w+)}/g, ":$1");
-    // add basePath if present, might alternatively solve this using { prefix: basePath }
-    // return base ? base + newPath : newPath;
   }
 
   copyProps(source, target, list) {
@@ -141,7 +139,7 @@ class parserV2 {
   processOperation(base, path, operation, data) {
     const route = {
       method: operation.toUpperCase(),
-      url: this.makeURL(base, path),
+      url: this.makeURL(path),
       schema: this.makeSchema(data),
       operationId: data.operationId || this.makeOperationId(operation, path)
     };
