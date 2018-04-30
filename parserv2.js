@@ -3,7 +3,22 @@
 class parserV2 {
   constructor() {
     this.config = { generic: {}, routes: [] };
-    this.schemaID = "http://example.com/schemas/defs";
+    this.schemaStore = {};
+  }
+
+  resolveRef(ref) {
+    const [id, path] = ref.split("#");
+    const schema = this.schemaStore[id];
+    if (schema === undefined) {
+      throw new Error(`Schema with id '${id}' not found`);
+    }
+    const components = path.split("/").slice(1);
+    const reducer = (accumulator, currentValue) => accumulator[currentValue];
+    const result = components.reduce(reducer, schema);
+    if (result === undefined) {
+      throw new Error(`Can't deference schema $ref '${ref}'`);
+    }
+    return result;
   }
 
   fixRefs(schema) {
@@ -11,11 +26,9 @@ class parserV2 {
       const thisItem = schema[item];
       if (typeof thisItem === "object" && thisItem !== null) {
         if (thisItem.$ref) {
-          if (thisItem.$ref.match(/^#/)) {
-            thisItem.$ref = this.schemaID + thisItem.$ref;
-          }
+          schema[item] = this.resolveRef(thisItem.$ref);
         }
-        this.fixRefs(thisItem);
+        this.fixRefs(schema[item]);
       }
     }
   }
@@ -145,20 +158,21 @@ class parserV2 {
     }
   }
 
-  processDefs(definitions) {
-    this.config.schema = {
-      schemaid: this.schemaID,
-      definitions
-    };
+  addSchema(schema, label) {
+    const id = label || schema["$id"] || "";
+    if (this.schemaStore[id] !== undefined) {
+      throw new Error(`Schema with id '${id}' already declared!`);
+    }
+    this.schemaStore[id] = schema;
   }
 
   parse(swagger, schemaID) {
-    this.schemaID = schemaID;
+    if (swagger.definitions !== undefined) {
+      this.addSchema({ definitions: swagger.definitions });
+    }
     for (let item in swagger) {
       if (item === "paths") {
         this.processPaths(swagger.basePath, swagger.paths);
-      } else if (item === "definitions") {
-        this.processDefs(swagger.definitions);
       } else {
         this.config.generic[item] = swagger[item];
         if (item === "basePath") {

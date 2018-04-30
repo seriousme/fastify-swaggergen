@@ -6,8 +6,7 @@ const fastify = require("fastify")();
 const service = require("./service.js")();
 const swagger = require("./examples/petstore-swagger.v2.json");
 const parser = require("./parserV2")();
-const schemaID = "http://example.com/schemas/defs1";
-const config = parser.parse(swagger, schemaID);
+const config = parser.parse(swagger);
 const routeConf = {};
 
 // AJV misses some validators for int32, int64 etc which ajv-oai adds
@@ -33,8 +32,6 @@ function addRoutes(fastify, opts, next) {
   });
   next();
 }
-
-ajv.addSchema(config.schema, schemaID);
 
 fastify.setSchemaCompiler(function(schema) {
   return ajv.compile(schema);
