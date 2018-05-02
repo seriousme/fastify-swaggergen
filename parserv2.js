@@ -116,6 +116,18 @@ class parserV2 {
     if (headers.length > 0) schema.headers = this.parseParams(headers);
   }
 
+  parseResponses(responses) {
+    const result = {};
+    let hasResponse = false;
+    for (let httpCode in responses) {
+      if (responses[httpCode].schema !== undefined) {
+        result[httpCode] = responses[httpCode].schema;
+        hasResponse = true;
+      }
+    }
+    return hasResponse ? result : null;
+  }
+
   makeSchema(data) {
     const schema = {};
     const copyItems = [
@@ -124,14 +136,18 @@ class parserV2 {
       "description",
       "operationId",
       "produces",
-      "consumes"
+      "consumes",
+      "deprecated"
     ];
     this.copyProps(data, schema, copyItems);
     if (data.parameters) {
       this.parseParameters(schema, data.parameters);
     }
     if (data.responses) {
-      schema.responses = data.responses;
+      const response = this.parseResponses(data.responses);
+      if (response) {
+        schema.response = response;
+      }
     }
     return schema;
   }
