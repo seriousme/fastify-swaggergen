@@ -6,7 +6,7 @@ const jsYaml = require("js-yaml");
 const parser = require("./parserV2")();
 const schemaID = "http://example.com/schemas/defs1";
 const config = parser.parse(swagger, schemaID);
-console.log(JSON.stringify(config, null, 2));
+//console.log(JSON.stringify(config, null, 2));
 
 function dumpItem(item) {
   let result = "";
