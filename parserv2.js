@@ -94,7 +94,6 @@ class parserV2 {
         case "formData":
           if (item.schema) {
             schema.body = item.schema;
-            schema.body.contentType = "application/x-www-form-urlencoded";
           }
           break;
         case "path":
@@ -157,7 +156,8 @@ class parserV2 {
       method: operation.toUpperCase(),
       url: this.makeURL(path),
       schema: this.makeSchema(data),
-      operationId: data.operationId || this.makeOperationId(operation, path)
+      operationId: data.operationId || this.makeOperationId(operation, path),
+      swaggerSource: data
     };
     this.config.routes.push(route);
   }
