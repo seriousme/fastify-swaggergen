@@ -10,8 +10,6 @@ function jsonPath(obj, path) {
   return components.reduce(reducer, obj);
 }
 
-//write(JSON.stringify(config, null, 2));
-
 function commentize(data, label, spacing = "  ") {
   if (!data) return "";
   //const dataStrings = JSON.stringify(data, flatProps, 2).split("\n");
