@@ -34,8 +34,6 @@ function fastifySwaggerGen(instance, opts = {}, next) {
     );
   }
 
-  console.log("typeof service", typeof service);
-
   if (typeof service !== "object") {
     next(new Error("'service' parameter refer to an object"));
   }

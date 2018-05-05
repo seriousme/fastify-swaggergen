@@ -1,7 +1,7 @@
 // the service of service.js encapsulated in a fastify plugin
 const fp = require("fastify-plugin");
 const fsw = require("fastify-swagger");
-const swaggerGen = require("../fastify-swaggergen/index.js");
+const swaggerGen = require("../fastify-swaggergen");
 const swaggerSpec = require("./swagger.json");
 const service = require("./service.js")();
 
