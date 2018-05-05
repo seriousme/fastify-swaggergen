@@ -1,5 +1,3 @@
-"use strict";
-
 const fp = require("fastify-plugin");
 
 function jsonPath(obj, path) {
@@ -55,9 +53,7 @@ function fastifySwaggerGen(instance, opts = {}, next) {
     coerceTypes: true
   });
 
-  instance.setSchemaCompiler(function (schema) {
-    return ajv.compile(schema);
-  });
+  instance.setSchemaCompiler(schema => ajv.compile(schema));
 
   // fastify swagger does not overwrite the 'host' property, so we remove it here
   config.generic.host = undefined;

@@ -4,7 +4,6 @@
 const jsYaml = require("js-yaml");
 const parser = require("./parserV2")();
 
-
 function jsonPath(obj, path) {
   const components = path.split("/").slice(1);
   const reducer = (accumulator, currentValue) => accumulator[currentValue];
@@ -50,7 +49,7 @@ function generator(opts = {}) {
     );
   }
   const config = parser.parse(swagger);
-  const write = opts.writer || console.log
+  const write = opts.writer || console.log;
 
   write(`// implementation of the operations in the swagger file
 
@@ -78,5 +77,4 @@ module.exports = opts => new Service(opts);
 `);
 }
 
-module.exports = generator
-
+module.exports = generator;

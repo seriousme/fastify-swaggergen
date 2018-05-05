@@ -1,5 +1,3 @@
-"use strict";
-
 const port = 3000;
 const fastify = require("fastify")();
 // {  logger: true }
