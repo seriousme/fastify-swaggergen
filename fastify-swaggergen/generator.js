@@ -2,7 +2,7 @@
 // mocks etc
 
 const jsYaml = require("js-yaml");
-const parser = require("./parserV2")();
+const parser = require("./parser.v2")();
 
 function jsonPath(obj, path) {
   const components = path.split("/").slice(1);
