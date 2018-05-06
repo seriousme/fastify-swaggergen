@@ -2,7 +2,10 @@ const fp = require("fastify-plugin");
 
 function jsonPath(obj, path) {
   const components = path.split("/").slice(1);
-  const reducer = (accumulator, currentValue) => accumulator[currentValue];
+  const reducer = (accumulator, currentValue) => {
+    if (typeof accumulator === "object" && accumulator !== null)
+      return accumulator[currentValue];
+  };
   return components.reduce(reducer, obj);
 }
 
@@ -26,6 +29,8 @@ function fastifySwaggerGen(instance, opts = {}, next) {
   const swagger = jsonPath(opts, "/swaggerSpec");
   const version = jsonPath(opts, "/swaggerSpec/swagger");
   const service = jsonPath(opts, "/service");
+  const SwaggerUI = !jsonPath(opts, "/fastifySwagger/disabled");
+
   if (typeof swagger !== "object" || version !== "2.0") {
     next(
       new Error(
@@ -64,7 +69,7 @@ function fastifySwaggerGen(instance, opts = {}, next) {
     routeConf.prefix = config.prefix;
   }
 
-  function addRoutes(routesInstance, opts, next) {
+  function generateRoutes(routesInstance, opts, next) {
     config.routes.forEach(item => {
       const response = item.schema.response;
       if (response) {
@@ -83,8 +88,18 @@ function fastifySwaggerGen(instance, opts = {}, next) {
     next();
   }
 
-  instance.register(addRoutes, routeConf);
-  instance.decorate("swaggerGenericInfo", config.generic);
+  if (SwaggerUI) {
+    const fastifySwagger = require("fastify-swagger");
+    const swaggerOpts = Object.assign(
+      {
+        swagger: config.generic,
+        exposeRoute: true
+      },
+      opts.fastifySwagger
+    );
+    instance.register(fastifySwagger, swaggerOpts);
+  }
+  instance.register(generateRoutes, routeConf);
   next();
 }
 

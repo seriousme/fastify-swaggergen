@@ -1,6 +1,6 @@
 // the service of service.js encapsulated in a fastify plugin
 const fp = require("fastify-plugin");
-const fsw = require("fastify-swagger");
+
 const swaggerGen = require("../fastify-swaggergen");
 const swaggerSpec = require("./swagger.json");
 const service = require("./service.js")();
@@ -15,15 +15,6 @@ function fastifySwaggerService(instance, opts = {}, next) {
   );
 
   instance.register(swaggerGen, newSwaggerGenOpts, next);
-
-  const newSwaggerOpts = Object.assign(
-    {
-      swagger: instance.swaggerGenericInfo,
-      exposeRoute: true
-    },
-    opts.fastifySwagger
-  );
-  instance.register(fsw, newSwaggerOpts);
   next();
 }
 
