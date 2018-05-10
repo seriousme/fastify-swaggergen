@@ -42,11 +42,7 @@ async function fastifySwaggerGen(instance, opts) {
   if (!isObject(opts.fastifySwagger)) opts.fastifySwagger = {};
 
   let swagger;
-  try {
-    swagger = await swp.validate(opts.swaggerSpec);
-  } catch (_) {
-    swagger = {};
-  }
+  swagger = await swp.validate(opts.swaggerSpec).catch(_ => (swagger = {}));
 
   const version = swagger.swagger;
   const service = getObject(opts.service);
