@@ -5,13 +5,27 @@ This repository contains an experiment to see if its possible to take a swagger 
 
 The result contains the following:
 
-* [index.js](index.js) contains the Fastify plugin which takes the following parameters:
-- swaggerSpec 
+* [index.js](index.js) contains the Fastify plugin which is controlled by the following options:
+  - `swaggerSpec`: this can be a JSON object, or the name of a JSON or YAML file containing a valid swagger (v2) file 
+  - `service`: this can be a javascript object or class, or the name of a javascript file containing such an object. If the import of the file results in a function instead of an object then the function will be executed.
+  - `fastifySwagger`: an object containing the options for the [fastify-swagger](https://github.com/fastify/fastify-swagger) plugin. To avoid registering this plugin pass `{ fastifySwagger: { disabled: true }}`
 
+  `swaggerSpec` and `service` are required. An example:
+  ```javascript
+  {
+    swaggerSpec: `${__dirname}/examples/petstore/petstore-swagger.v2.json`,
+    service: `${__dirname}/examples/petstore/service.js`,
+    fastifySwagger: {
+      disabled: true
+    }
+  }
+  ```
 
 * [generate.js](examples/petstore/generate.js) demonstrates how to generate a `Service` class. The generator can be extended to add mocks, tests etc.
 
-* [fastify-swagger](https://github.com/fastify/fastify-swagger) has been included to do a round trip. The swagger UI shows on `/documentation`
+* [fastify-swagger](https://github.com/fastify/fastify-swagger) has been included to do a round trip. The swagger UI shows by default on `/documentation`
+
+
 
 ## Examples
 
@@ -54,3 +68,6 @@ routes extracted from the [petstore example](examples/petstore/petstore-swagger.
 ```
 
 as the pet returned by service.js does not match the response schema.
+
+# License
+MIT
