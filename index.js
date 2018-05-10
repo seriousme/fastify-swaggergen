@@ -129,3 +129,11 @@ module.exports = fp(fastifySwaggerGen, {
   fastify: ">=0.39.0",
   name: "fastify-swaggergen"
 });
+
+module.exports.options = {
+  swaggerSpec: "examples/petstore/petstore-swagger-v2.json",
+  service: "examples/petstore/service.js",
+  fastifySwagger: {
+    disabled: false
+  }
+};
