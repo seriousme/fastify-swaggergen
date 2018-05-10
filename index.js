@@ -1,19 +1,131 @@
-const port = 3000;
-const fastify = require("fastify")();
-// {  logger: true }
+const fp = require("fastify-plugin");
+const swp = require("swagger-parser");
 
-const service = require("./services/index.js");
+function isObject(obj) {
+  return typeof obj === "object" && obj !== null;
+}
 
-fastify.register(service);
-
-// Run the server!
-const start = async () => {
-  try {
-    await fastify.listen(port);
-    fastify.log.info(`server listening on ${fastify.server.address().port}`);
-  } catch (err) {
-    fastify.log.error(err);
-    process.exit(1);
+function getObject(param, next) {
+  let data = param;
+  if (typeof param === "string") {
+    try {
+      data = require(param);
+    } catch (error) {
+      next(new Error(`failed to load ${param}`));
+    }
   }
-};
-start();
+  if (typeof data === "function") {
+    data = data();
+  }
+
+  return data;
+}
+
+// fastify uses the built-in AJV instance during serialization, and that
+// instance does not know about int32 and int64 so remove those formats
+// from the responses
+const unknownFormats = { int32: true, int64: true };
+
+function stripResponseFormats(schema) {
+  for (let item in schema) {
+    if (isObject(schema[item])) {
+      if (schema[item].format && unknownFormats[schema[item].format]) {
+        schema[item].format = undefined;
+      }
+      stripResponseFormats(schema[item]);
+    }
+  }
+}
+
+async function fastifySwaggerGen(instance, opts, next) {
+  if (!isObject(opts)) opts = {};
+  if (!isObject(opts.fastifySwagger)) opts.fastifySwagger = {};
+
+  let swagger;
+  try {
+    swagger = await swp.validate(opts.swaggerSpec);
+  } catch (_) {
+    swagger = {};
+  }
+
+  const version = swagger.swagger;
+  const service = getObject(opts.service, next);
+
+  const SwaggerUI = !opts.fastifySwagger.disabled;
+
+  if (version !== "2.0") {
+    next(
+      new Error(
+        "'swaggerSpec' parameter must contain a swagger version 2.0 specification object"
+      )
+    );
+  }
+
+  if (!isObject(service)) {
+    next(new Error("'service' parameter must refer to an object"));
+  }
+
+  const parser = require("./parser.v2")();
+  const config = parser.parse(swagger);
+  const routeConf = {};
+
+  // AJV misses some validators for int32, int64 etc which ajv-oai adds
+  const Ajv = require("ajv-oai");
+  const ajv = new Ajv({
+    // the fastify defaults
+    removeAdditional: true,
+    useDefaults: true,
+    coerceTypes: true
+  });
+
+  instance.setSchemaCompiler(schema => ajv.compile(schema));
+
+  // fastify swagger does not overwrite the 'host' property, so we remove it here
+  config.generic.host = undefined;
+  // fastify swagger does not overwrite the 'basePath' property, but adds
+  // the prefix to the routes anyway, resulting in a double basePath in the url
+  // e.g. /v2/v2/pet  vs /v2/pet, so we remove 'basePath' here.
+  config.generic.basePath = undefined;
+
+  if (config.prefix) {
+    routeConf.prefix = config.prefix;
+  }
+
+  function generateRoutes(routesInstance, opts, next) {
+    config.routes.forEach(item => {
+      const response = item.schema.response;
+      if (response) {
+        stripResponseFormats(response);
+      }
+      if (service[item.operationId]) {
+        routesInstance.log.debug("service has", item.operationId);
+        item.handler = service[item.operationId];
+      } else {
+        item.handler = async (request, reply) => {
+          throw new Error(`Operation ${item.operationId} not implemented`);
+        };
+      }
+      routesInstance.route(item);
+    });
+    next();
+  }
+
+  if (SwaggerUI) {
+    const fastifySwagger = require("fastify-swagger");
+    const swaggerOpts = Object.assign(
+      {
+        swagger: config.generic,
+        exposeRoute: true
+      },
+      opts.fastifySwagger
+    );
+    instance.register(fastifySwagger, swaggerOpts);
+  }
+  instance.register(generateRoutes, routeConf);
+  next();
+}
+
+module.exports = fp(fastifySwaggerGen, {
+  fastify: ">=0.39.0",
+  name: "fastify-swaggergen"
+});
