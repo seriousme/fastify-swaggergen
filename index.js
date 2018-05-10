@@ -5,13 +5,13 @@ function isObject(obj) {
   return typeof obj === "object" && obj !== null;
 }
 
-function getObject(param, next) {
+function getObject(param) {
   let data = param;
   if (typeof param === "string") {
     try {
       data = require(param);
     } catch (error) {
-      next(new Error(`failed to load ${param}`));
+      throw new Error(`failed to load ${param}`);
     }
   }
   if (typeof data === "function") {
@@ -37,10 +37,10 @@ function stripResponseFormats(schema) {
   }
 }
 
-async function fastifySwaggerGen(instance, opts, next) {
+async function fastifySwaggerGen(instance, opts) {
   if (!isObject(opts)) opts = {};
   if (!isObject(opts.fastifySwagger)) opts.fastifySwagger = {};
-
+  console.log(opts.swaggerSpec);
   let swagger;
   try {
     swagger = await swp.validate(opts.swaggerSpec);
@@ -49,20 +49,18 @@ async function fastifySwaggerGen(instance, opts, next) {
   }
 
   const version = swagger.swagger;
-  const service = getObject(opts.service, next);
+  const service = getObject(opts.service);
 
   const SwaggerUI = !opts.fastifySwagger.disabled;
 
   if (version !== "2.0") {
-    next(
-      new Error(
-        "'swaggerSpec' parameter must contain a swagger version 2.0 specification object"
-      )
+    throw new Error(
+      "'swaggerSpec' parameter must contain a swagger version 2.0 specification object"
     );
   }
 
   if (!isObject(service)) {
-    next(new Error("'service' parameter must refer to an object"));
+    throw new Error("'service' parameter must refer to an object");
   }
 
   const parser = require("./parser.v2")();
@@ -91,7 +89,7 @@ async function fastifySwaggerGen(instance, opts, next) {
     routeConf.prefix = config.prefix;
   }
 
-  function generateRoutes(routesInstance, opts, next) {
+  async function generateRoutes(routesInstance, opts) {
     config.routes.forEach(item => {
       const response = item.schema.response;
       if (response) {
@@ -107,7 +105,6 @@ async function fastifySwaggerGen(instance, opts, next) {
       }
       routesInstance.route(item);
     });
-    next();
   }
 
   if (SwaggerUI) {
@@ -122,7 +119,6 @@ async function fastifySwaggerGen(instance, opts, next) {
     instance.register(fastifySwagger, swaggerOpts);
   }
   instance.register(generateRoutes, routeConf);
-  next();
 }
 
 module.exports = fp(fastifySwaggerGen, {
