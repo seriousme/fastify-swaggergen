@@ -4,6 +4,7 @@
   "description": "generate a fastify configuration from a swagger specification",
   "main": "index.js",
   "scripts": {
+    "start": "fastify start cli-runner.js",
     "test": "tap test/test-*.js"
   },
   "author": "Hans Klunder",
