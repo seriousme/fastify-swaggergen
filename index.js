@@ -40,7 +40,7 @@ function stripResponseFormats(schema) {
 async function fastifySwaggerGen(instance, opts) {
   if (!isObject(opts)) opts = {};
   if (!isObject(opts.fastifySwagger)) opts.fastifySwagger = {};
-  console.log(opts.swaggerSpec);
+
   let swagger;
   try {
     swagger = await swp.validate(opts.swaggerSpec);
@@ -127,7 +127,7 @@ module.exports = fp(fastifySwaggerGen, {
 });
 
 module.exports.options = {
-  swaggerSpec: "examples/petstore/petstore-swagger-v2.json",
+  swaggerSpec: "examples/petstore/petstore-swagger.v2.json",
   service: "examples/petstore/service.js",
   fastifySwagger: {
     disabled: false
