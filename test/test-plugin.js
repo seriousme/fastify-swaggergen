@@ -192,7 +192,11 @@ test("invalid swagger specification throws error ", t => {
   fastify.register(fastifySwaggerGen, invalidSwaggerOpts);
   fastify.ready(err => {
     if (err) {
-      t.pass("got error");
+      t.equal(
+        err,
+        "'swaggerSpec' parameter must contain a swagger version 2.0 specification object",
+        "got error"
+      );
     } else {
       t.fail("missed expected error");
     }
@@ -205,7 +209,7 @@ test("invalid service definition throws error ", t => {
   fastify.register(fastifySwaggerGen, invalidServiceOpts);
   fastify.ready(err => {
     if (err) {
-      t.pass("got error");
+      t.equal(err, "'service' parameter must refer to an object", "got error");
     } else {
       t.fail("missed expected error");
     }
