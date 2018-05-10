@@ -1,5 +1,6 @@
 # Fastify swagger generator
-
+[![Build Status](https://travis-ci.org/seriousme/fastify-swaggergen.svg?branch=master)](https://travis-ci.org/seriousme/node-dash)
+[![Greenkeeper badge](https://badges.greenkeeper.io/seriousme/fastify-swaggergen.svg)](https://greenkeeper.io/)
 This repository contains an experiment to see if its possible to take a swagger file (v2) and autogenerate a configuration for [fastify](https://www.fastify.io).
 
 
