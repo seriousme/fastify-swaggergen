@@ -2,7 +2,7 @@
 // mocks etc
 
 const jsYaml = require("js-yaml");
-const parser = require("./parserV2")();
+const parser = require("./parser.v2")();
 
 function jsonPath(obj, path) {
   const components = path.split("/").slice(1);
@@ -26,11 +26,13 @@ function stringifyItem(item) {
   let result = "";
   const headers = item.schema.headers;
   const params = item.schema.params;
+  const query = item.schema.querystring;
   const body = item.schema.body;
   const responses = item.swaggerSource.responses;
 
   if (headers) result += commentize(headers, "req.headers:");
   if (params) result += commentize(params, "req.params:");
+  if (query) result += commentize(query, "req.query:");
   if (body) result += commentize(body, "req.body:");
   if (responses) result += commentize(responses, "valid responses:");
   return result;
@@ -62,8 +64,8 @@ class Service {
 // summary:  ${item.schema.summary}
 ${stringifyItem(item)}
 
-  async ${item.operationId}(req, resp) {
-    write("${item.operationId}", req.params);
+  async ${item.operationId}(req, reply) {
+    console.log("${item.operationId}", req.params);
     return { key: "value"};
   }`);
   });
