@@ -1,5 +1,5 @@
 const swaggerSpec = require("petstore-swagger.v2.json");
-const generator = require("../../generator");
+const generator = require("../../lib/generator");
 const result = [];
 
 const writer = item => result.push(item);

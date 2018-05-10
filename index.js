@@ -63,7 +63,7 @@ async function fastifySwaggerGen(instance, opts) {
     throw new Error("'service' parameter must refer to an object");
   }
 
-  const parser = require("./parser.v2")();
+  const parser = require("./lib/parser.v2")();
   const config = parser.parse(swagger);
   const routeConf = {};
 

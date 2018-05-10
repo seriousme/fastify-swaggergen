@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "fastify start cli-runner.js",
-    "test": "tap test/test-*.js"
+    "test": "tap test/test-*.js",
+    "dev": "fastify start -l info -P cli-runner.js"
   },
   "author": "Hans Klunder",
   "license": "MIT",
