@@ -5,17 +5,19 @@ This repository contains an experiment to see if its possible to take a swagger 
 
 The result contains the following:
 
-* [index.js](index.js) contains a minimal Fastify setup that registers the [services](services) plug-in, that in turn registers the [fastify-swaggergen] plug-in
+* [index.js](index.js) contains the Fastify plugin which takes the following parameters:
+- swaggerSpec 
 
-* [generate.js](generate.js) demonstarates how to generate the `Service` class. The generator can be extended to add mocks, tests etc.
+
+* [generate.js](examples/petstore/generate.js) demonstrates how to generate a `Service` class. The generator can be extended to add mocks, tests etc.
 
 * [fastify-swagger](https://github.com/fastify/fastify-swagger) has been included to do a round trip. The swagger UI shows on `/documentation`
 
 ## Examples
 
 Clone this repository and run `npm i` 
-Executing `node index.js` will then start fastify on localhost port 3000 with the
-routes extracted from the [petstore example](fastify-swagger-gen/examples/petstore-swagger.v2.json)
+Executing `npm start` will then start fastify on localhost port 3000 with the
+routes extracted from the [petstore example](examples/petstore/petstore-swagger.v2.json) and the [accompanying service definition](examples/petstore/service.js)
 
 * http://localhost:3000/documentation will show the swagger UI, for comparison one could look
   at http://petstore.swagger.io/
