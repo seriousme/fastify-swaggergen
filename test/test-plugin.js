@@ -194,7 +194,7 @@ test("invalid swagger specification throws error ", t => {
     if (err) {
       t.equal(
         err.message,
-        "'swaggerSpec' parameter must contain a swagger version 2.0 specification object",
+        "'swaggerSpec' parameter must contain a swagger version 2.0 specification",
         "got error"
       );
     } else {
