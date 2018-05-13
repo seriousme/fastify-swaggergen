@@ -1,5 +1,5 @@
 const fp = require("fastify-plugin");
-const swp = require("swagger-parser");
+const parser = require("./lib/parser");
 
 function isObject(obj) {
   return typeof obj === "object" && obj !== null;
@@ -41,30 +41,14 @@ async function fastifySwaggerGen(instance, opts) {
   if (!isObject(opts)) opts = {};
   if (!isObject(opts.fastifySwagger)) opts.fastifySwagger = {};
 
-  let swagger;
-  try {
-    swagger = await swp.validate(opts.swaggerSpec);
-  } catch (_) {
-    swagger = {};
-  }
-
-  const version = swagger.swagger;
-  const service = getObject(opts.service);
-
   const SwaggerUI = !opts.fastifySwagger.disabled;
 
-  if (version !== "2.0") {
-    throw new Error(
-      "'swaggerSpec' parameter must contain a swagger version 2.0 specification object"
-    );
-  }
-
+  const service = getObject(opts.service);
   if (!isObject(service)) {
     throw new Error("'service' parameter must refer to an object");
   }
 
-  const parser = require("./lib/parser.v2")();
-  const config = parser.parse(swagger);
+  const config = await parser().parse(opts.swaggerSpec);
   const routeConf = {};
 
   // AJV misses some validators for int32, int64 etc which ajv-oai adds
