@@ -1,7 +1,18 @@
 const path = require("path");
-const Generator = require("../lib/generator");
+const Generator = require("./lib/generator");
+const argvParser = require("minimist");
 
-const specPath = path.join(__dirname, "test-swagger.v2.json");
+function usage() {
+  console.log(`Usage: ${path.basename(__filename)} <swagger specification>`);
+  process.exit(1);
+}
+
+const spec = process.argv[2];
+if (!spec) {
+  usage();
+}
+
+const specPath = path.join(__dirname, spec);
 const projectName = "generatedProject";
 const dir = __dirname;
 const checksumOnly = true;

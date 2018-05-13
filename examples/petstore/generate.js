@@ -1,12 +1,10 @@
-const swaggerSpec = require("petstore-swagger.v2.json");
-const generator = require("../../lib/generator");
+const swaggerSpec = require("./petstore-swagger.v2.json");
+const gen = require("../../lib/generator")({ swaggerSpec });
 const result = [];
 
-const writer = item => result.push(item);
+const writer = item => {
+  result.push(item);
+};
 
-generator({
-  swaggerSpec,
-  writer
-});
-
+gen.generate(writer);
 console.log(result.join("\n"));
