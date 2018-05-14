@@ -27,7 +27,7 @@ The result contains the following:
 
 * [fastify-swagger](https://github.com/fastify/fastify-swagger) has been included to do a round trip. The swagger UI shows by default on `/documentation`
 
-* [example/generatedProject](example/generatedProject) contains the result of running `node generate --baseDir=examples examples/petstore/petstore-swagger.v2.yaml`
+* [examples/generatedProject](examples/generatedProject) contains the result of running `node generate --baseDir=examples examples/petstore/petstore-swagger.v2.yaml`
 
 ## Examples
 
