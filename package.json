@@ -6,7 +6,8 @@
   "scripts": {
     "start": "fastify start cli-runner.js",
     "test": "tap test/test-*.js",
-    "dev": "fastify start -l info -P cli-runner.js"
+    "dev": "fastify start -l info -P cli-runner.js",
+    "updateChecksums": "node generate -c test/test-swagger.v2.json > test/test-checksums.json"
   },
   "author": "Hans Klunder",
   "license": "MIT",

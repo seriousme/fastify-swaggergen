@@ -18,7 +18,7 @@
     },
     "readme": {
       "fileName": "README.md",
-      "checksum": "dafd40cfe2a740dd5c63083d5be0f1f941a14610ba3f231c906f39ba5949b8ad"
+      "checksum": "7a53d0b140af852b8627aeb27d563c45f759ee1222da6b2c422a2b9aa10eb888"
     },
     "testPlugin": {
       "fileName": "test-plugin.js",
