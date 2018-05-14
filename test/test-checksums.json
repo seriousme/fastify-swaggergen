@@ -2,11 +2,11 @@
   "files": {
     "swagger": {
       "fileName": "swagger.json",
-      "checksum": "da9274dae51c8154a83c11332ecba0032ef07b91c9d15d1610e6487b3d4d11ed"
+      "checksum": "3c28ccdcb46cf1c5298e3c0b4353dcd7c82f5b64ed290303ee17661bc72e2599"
     },
     "service": {
       "fileName": "service.js",
-      "checksum": "e67ce64a769c11a65af640f475e99960077678d614028a10a22e9bfe6a1d24f2"
+      "checksum": "a835c7ae15daa37748f2b45fec01fceec9231e599d938ac417e3d9c737531419"
     },
     "cliRunner": {
       "fileName": "cli-runner.js",
@@ -22,7 +22,7 @@
     },
     "testPlugin": {
       "fileName": "test-plugin.js",
-      "checksum": "c322fb53c3c8c434e17c07cb0b0b81fee93aa23dc8dd2925deca923e16478dc2"
+      "checksum": "f68155a15a0010b30c9d957d5de44405232d02dd4580f7c11c84ac3a2f11207c"
     }
   }
 }
