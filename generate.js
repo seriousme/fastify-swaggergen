@@ -56,6 +56,10 @@ if (!argv.specification) {
 const specPath = path.resolve(process.cwd(), argv.specification);
 const generator = new Generator(argv.checksumOnly, argv.localPlugin);
 const handler = str => (argv.checksumOnly ? JSON.stringify(str, null, 2) : str);
+if (generator.localPlugin) {
+  console.log(`Using local plugin at: ${generator.localPlugin}
+  `);
+}
 
 generator
   .parse(specPath)

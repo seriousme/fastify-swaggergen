@@ -17,7 +17,10 @@ const opts = {
 
 const yamlOpts = {
   swaggerSpec: swaggerSpecYAML,
-  service
+  service,
+  fastifySwagger: {
+    disabled: true
+  }
 };
 
 const invalidSwaggerOpts = {
@@ -28,6 +31,11 @@ const invalidSwaggerOpts = {
 const invalidServiceOpts = {
   swaggerSpec: swaggerSpecYAML,
   service: null
+};
+
+const missingServiceOpts = {
+  swaggerSpec: swaggerSpecYAML,
+  service: `${__dirname}/not-a-valid-service.js`
 };
 
 const infoOpts = {
@@ -56,7 +64,7 @@ test("fastify-swagger registered correctly", t => {
       var payload = JSON.parse(res.payload);
       // compensate for the behavior of fastify-swagger
       payload.paths = {};
-      payload.basePath = "/v2";
+      // payload.basePath = "/v2";
       payload.host = "localhost";
       t.strictSame(payload, swaggerInfo, "swagger object as expected");
     }
@@ -135,6 +143,23 @@ test("body parameters work", t => {
   );
 });
 
+test("missing operation from service returns error 500", t => {
+  t.plan(2);
+  const fastify = Fastify();
+  fastify.register(fastifySwaggerGen, opts);
+
+  fastify.inject(
+    {
+      method: "get",
+      url: "/v2/noOperationId/1"
+    },
+    (err, res) => {
+      t.error(err);
+      t.strictEqual(res.statusCode, 500);
+    }
+  );
+});
+
 test("response schema works with valid response", t => {
   t.plan(2);
   const fastify = Fastify();
@@ -195,7 +220,24 @@ test("invalid swagger specification throws error ", t => {
       t.equal(
         err.message,
         "'swaggerSpec' parameter must contain a swagger version 2.0 specification",
-        "got error"
+        "got expected error"
+      );
+    } else {
+      t.fail("missed expected error");
+    }
+  });
+});
+
+test("missing service definition throws error ", t => {
+  t.plan(1);
+  const fastify = Fastify();
+  fastify.register(fastifySwaggerGen, invalidServiceOpts);
+  fastify.ready(err => {
+    if (err) {
+      t.equal(
+        err.message,
+        "'service' parameter must refer to an object",
+        "got expected error"
       );
     } else {
       t.fail("missed expected error");
@@ -206,14 +248,10 @@ test("invalid swagger specification throws error ", t => {
 test("invalid service definition throws error ", t => {
   t.plan(1);
   const fastify = Fastify();
-  fastify.register(fastifySwaggerGen, invalidServiceOpts);
+  fastify.register(fastifySwaggerGen, missingServiceOpts);
   fastify.ready(err => {
     if (err) {
-      t.equal(
-        err.message,
-        "'service' parameter must refer to an object",
-        "got error"
-      );
+      t.match(err.message, /^failed to load/, "got expected error");
     } else {
       t.fail("missed expected error");
     }

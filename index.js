@@ -38,7 +38,6 @@ function stripResponseFormats(schema) {
 }
 
 async function fastifySwaggerGen(instance, opts) {
-  if (!isObject(opts)) opts = {};
   if (!isObject(opts.fastifySwagger)) opts.fastifySwagger = {};
 
   const SwaggerUI = !opts.fastifySwagger.disabled;
