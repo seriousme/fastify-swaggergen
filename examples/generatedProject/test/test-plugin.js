@@ -88,7 +88,7 @@ test("testing addPet", t => {
     {
       method: "POST",
       url: "/v2/pet",
-      payload: undefined, 
+      payload: undefined, //insert body data here!!
       headers: undefined 
     },
     (err, res) => {
@@ -176,7 +176,7 @@ test("testing updatePet", t => {
     {
       method: "PUT",
       url: "/v2/pet",
-      payload: undefined, 
+      payload: undefined, //insert body data here!!
       headers: undefined 
     },
     (err, res) => {
@@ -488,6 +488,16 @@ test("testing getPetById", t => {
   //   required:
   //     - petId
   //
+  // req.body
+  //   type: object
+  //   properties:
+  //     name:
+  //       type: string
+  //       description: Updated name of the pet
+  //     status:
+  //       type: string
+  //       description: Updated status of the pet
+  //
   // valid responses
   //   '405':
   //     description: Invalid input
@@ -503,7 +513,7 @@ test("testing updatePetWithForm", t => {
     {
       method: "POST",
       url: "/v2/pet/:petId",
-      payload: undefined, 
+      payload: undefined, //insert body data here!!
       headers: undefined 
     },
     (err, res) => {
@@ -551,7 +561,7 @@ test("testing deletePet", t => {
       method: "DELETE",
       url: "/v2/pet/:petId",
       payload: undefined, 
-      headers: undefined 
+      headers: undefined //insert headers here!!
     },
     (err, res) => {
       t.error(err);
@@ -573,6 +583,16 @@ test("testing deletePet", t => {
   //       description: ID of pet to update
   //   required:
   //     - petId
+  //
+  // req.body
+  //   type: object
+  //   properties:
+  //     additionalMetadata:
+  //       type: string
+  //       description: Additional data to pass to server
+  //     file:
+  //       type: string
+  //       description: file to upload
   //
   // valid responses
   //   '200':
@@ -599,7 +619,7 @@ test("testing uploadFile", t => {
     {
       method: "POST",
       url: "/v2/pet/:petId/uploadImage",
-      payload: undefined, 
+      payload: undefined, //insert body data here!!
       headers: undefined 
     },
     (err, res) => {
@@ -721,7 +741,7 @@ test("testing placeOrder", t => {
     {
       method: "POST",
       url: "/v2/store/order",
-      payload: undefined, 
+      payload: undefined, //insert body data here!!
       headers: undefined 
     },
     (err, res) => {
@@ -887,7 +907,7 @@ test("testing createUser", t => {
     {
       method: "POST",
       url: "/v2/user",
-      payload: undefined, 
+      payload: undefined, //insert body data here!!
       headers: undefined 
     },
     (err, res) => {
@@ -944,7 +964,7 @@ test("testing createUsersWithArrayInput", t => {
     {
       method: "POST",
       url: "/v2/user/createWithArray",
-      payload: undefined, 
+      payload: undefined, //insert body data here!!
       headers: undefined 
     },
     (err, res) => {
@@ -1001,7 +1021,7 @@ test("testing createUsersWithListInput", t => {
     {
       method: "POST",
       url: "/v2/user/createWithList",
-      payload: undefined, 
+      payload: undefined, //insert body data here!!
       headers: undefined 
     },
     (err, res) => {
@@ -1220,7 +1240,7 @@ test("testing updateUser", t => {
     {
       method: "PUT",
       url: "/v2/user/:username",
-      payload: undefined, 
+      payload: undefined, //insert body data here!!
       headers: undefined 
     },
     (err, res) => {

@@ -11,8 +11,7 @@
     "test": "test"
   },
   "dependencies": {
-    "fastify-plugin": "^1.0.1",
-    "fastify-swaggergen": "^0.2.0"
+    "fastify-plugin": "^1.0.1"
   },
   "devDependencies": {
     "fastify": "^1.4.0",

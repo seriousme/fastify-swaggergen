@@ -397,6 +397,16 @@ class Service {
   //   required:
   //     - petId
   //
+  // req.body
+  //   type: object
+  //   properties:
+  //     name:
+  //       type: string
+  //       description: Updated name of the pet
+  //     status:
+  //       type: string
+  //       description: Updated status of the pet
+  //
   // valid responses
   //   '405':
   //     description: Invalid input
@@ -450,6 +460,16 @@ class Service {
   //       description: ID of pet to update
   //   required:
   //     - petId
+  //
+  // req.body
+  //   type: object
+  //   properties:
+  //     additionalMetadata:
+  //       type: string
+  //       description: Additional data to pass to server
+  //     file:
+  //       type: string
+  //       description: file to upload
   //
   // valid responses
   //   '200':
