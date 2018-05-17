@@ -23,11 +23,9 @@ The result contains the following:
   }
   ```
 
-* [generate.js](examples/petstore/generate.js) demonstrates how to generate a `Service` class. The generator can be extended to add mocks, tests etc.
+* [generate.js](generate.js) is a tool that can generate a project based on a swaggerfile. The generator could be extended to add mocks, etc.
 
-* [fastify-swagger](https://github.com/fastify/fastify-swagger) has been included to do a round trip. The swagger UI shows by default on `/documentation`
-
-
+* [examples/generatedProject](examples/generatedProject) contains the result of running `node generate -l --baseDir=examples examples/petstore/petstore-swagger.v2.yaml`. The generated code can be started using `npm start` in `examples/generatedProject` (need to run `npm i` there first)
 
 ## Examples
 

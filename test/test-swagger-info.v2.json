@@ -6,7 +6,6 @@
     "version": "0.1.0"
   },
   "host": "localhost",
-  "basePath": "/v2",
   "schemes": ["http"],
   "consumes": ["application/json"],
   "produces": ["application/json"],
