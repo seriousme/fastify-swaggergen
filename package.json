@@ -7,7 +7,8 @@
     "start": "fastify start cli-runner.js",
     "test": "tap test/test-*.js",
     "dev": "fastify start -l info -P cli-runner.js",
-    "updateChecksums": "node generate -c test/test-swagger.v2.json > test/test-checksums.json"
+    "updateChecksums": "node generate -c test/test-swagger.v2.json > test/test-swagger.v2.checksums.json",
+    "postupdateChecksums": "node generate -c test/test-swagger-noBasePath.v2.json > test/test-swagger-noBasePath.v2.checksums.json"
   },
   "author": "Hans Klunder",
   "license": "MIT",
