@@ -25,7 +25,7 @@ The result contains the following:
 
 * [generate.js](generate.js) is a tool that can generate a project based on a swaggerfile. The generator could be extended to add mocks, etc.
 
-* [examples/generatedProject](examples/generatedProject) contains the result of running `node generate -l --baseDir=examples examples/petstore/petstore-swagger.v2.yaml`. The generated code can be started using `npm start` in `examples/generatedProject` (need to run npm i there first)
+* [examples/generatedProject](examples/generatedProject) contains the result of running `node generate -l --baseDir=examples examples/petstore/petstore-swagger.v2.yaml`. The generated code can be started using `npm start` in `examples/generatedProject` (need to run `npm i` there first)
 
 ## Examples
 
