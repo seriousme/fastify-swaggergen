@@ -92,6 +92,27 @@
         }
       }
     },
+    "/noOperationId/{id}":{
+      "get":{
+        "summary": "Test missing operationid",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref": "#/definitions/responseObject"
+            }
+          }
+        }
+      }
+    },
     "/responses": {
       "get": {
         "operationId": "getResponse",
