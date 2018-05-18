@@ -1,6 +1,6 @@
 {
   "name": "fastify-swaggergen",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "generate a fastify configuration from a swagger specification",
   "main": "index.js",
   "scripts": {
@@ -12,6 +12,9 @@
   },
   "author": "Hans Klunder",
   "license": "MIT",
+  "bin":{
+    "swaggergen": "./generate.js"
+  },
   "dependencies": {
     "ajv-oai": "^1.1.1",
     "fastify-plugin": "^1.0.1",
@@ -21,8 +24,9 @@
     "swagger-parser": "^4.1.0"
   },
   "directories": {
-    "example": "examples",
-    "test": "test"
+    "example": "./examples",
+    "test": "./test",
+    "lib": "./examples"
   },
   "devDependencies": {
     "fastify": "^1.4.0",
