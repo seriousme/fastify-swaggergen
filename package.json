@@ -26,7 +26,8 @@
   "directories": {
     "example": "./examples",
     "test": "./test",
-    "lib": "./examples"
+    "lib": "./examples",
+    "bin": "./bin"
   },
   "devDependencies": {
     "fastify": "^1.4.0",
