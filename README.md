@@ -5,7 +5,7 @@
 A plugin for [fastify](https://www.fastify.io) to autogenerate a configuration based on a [Swagger](https://swagger.io/)v2 specification.
 
 <a name="install"></a>
-Install: 
+## Install: 
 ```
 npm i fastify-swaggergen --save
 ```
