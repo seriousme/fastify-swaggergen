@@ -2,35 +2,80 @@
 [![Build Status](https://travis-ci.org/seriousme/fastify-swaggergen.svg?branch=master)](https://travis-ci.org/seriousme/fastify-swaggergen)
 [![Greenkeeper badge](https://badges.greenkeeper.io/seriousme/fastify-swaggergen.svg)](https://greenkeeper.io/)
 
-This repository contains an experiment to see if its possible to take a swagger file (v2) and autogenerate a configuration for [fastify](https://www.fastify.io).
+A plugin for [fastify](https://www.fastify.io) to autogenerate a configuration based on a [Swagger](https://swagger.io/)v2 specification.
+
+<a name="install"></a>
+Install: 
+```
+npm i fastify-swaggergen --save
+```
+<a name="plugin"></a>
+## Plugin
+<a name="pluginUsage"></a>
+### Usage
+
+Add the plugin to your project with `register` and pass it some basic options and you are done !
+```javascript
+const swaggerGen = require("fastify-swaggergen");
+
+const options = {
+  swaggerSpec: `${__dirname}/petstore-swagger.v2.json`,
+  service: `${__dirname}/service.js`,
+  fastifySwagger: {
+    disabled: false
+  }
+};
 
 
-The result contains the following:
+fastify.register(swaggerGen, options);
+```
 
-* [index.js](index.js) contains the Fastify plugin which is controlled by the following options:
-  - `swaggerSpec`: this can be a JSON object, or the name of a JSON or YAML file containing a valid swagger (v2) file 
-  - `service`: this can be a javascript object or class, or the name of a javascript file containing such an object. If the import of the file results in a function instead of an object then the function will be executed.
+All schema and routes will be taken from the Swagger specification listed in the options. No need to specify them in your code. 
+<a name="pluginOptions"></a>
+### Options
+  - `swaggerSpec`: this can be a JSON object, or the name of a JSON or YAML file containing a valid Swagger (v2) file 
+  - `service`: this can be a javascript object or class, or the name of a javascript file containing such an object. If the import of the file results in a function instead of an object then the function will be executed during import.
   - `fastifySwagger`: an object containing the options for the [fastify-swagger](https://github.com/fastify/fastify-swagger) plugin. To avoid registering this plugin pass `{ fastifySwagger: { disabled: true }}`
 
-  `swaggerSpec` and `service` are required. An example:
-  ```javascript
-  {
-    swaggerSpec: `${__dirname}/examples/petstore/petstore-swagger.v2.json`,
-    service: `${__dirname}/examples/petstore/service.js`,
-    fastifySwagger: {
-      disabled: true
-    }
-  }
-  ```
+See the [examples](#examples) section for a demo.
+<a name="generator"></a>
+## Generator
 
-* [generate.js](generate.js) is a tool that can generate a project based on a swaggerfile. The generator could be extended to add mocks, etc.
+To make life even more easy there is the `swaggergen` cli. The `swaggergen` cli takes a valid Swagger (v2) file (JSON or YAML) and generates a project including a fastify flugin that you can use on any fastify server, a stub of the service class and a skeleton of a test harness to test the plugin. 
 
-* [examples/generatedProject](examples/generatedProject) contains the result of running `node generate -l --baseDir=examples examples/petstore/petstore-swagger.v2.yaml`. The generated code can be started using `npm start` in `examples/generatedProject` (need to run `npm i` there first)
+<a name="generatorUsage"></a>
+### Usage
+```
+  swaggergen [options] <swagger specification>
+```
+Generate a project based on the provided swagger specification.
+Any existing files in the project folder will be overwritten!
+See the [generator examples](#examples) section for a demo.
+<a name="generatorOptions"></a>
+### Options:
+```
 
+  -p <name>                   The name of the project to generate
+  --projectName=<name>        [default: generatedProject]
+
+  -b <dir> --baseDir=<dir>    Directory to generate the project in.
+                              This directory must already exist.
+                              [default: "."]
+
+The following options are only usefull for testing the swaggergen plugin:
+  -c --checksumOnly           Don't generate the project on disk but
+                              return checksums only.
+  -l --localPlugin            Use a local path to the plugin.
+```
+See the [generator example](#generatorExamples) section for a demo.
+
+<a name="examples"></a>
 ## Examples
-
 Clone this repository and run `npm i` 
-Executing `npm start` will then start fastify on localhost port 3000 with the
+
+<a name="pluginExamples"></a>
+### Plugin
+Executing `npm start` will start fastify on localhost port 3000 with the
 routes extracted from the [petstore example](examples/petstore/petstore-swagger.v2.json) and the [accompanying service definition](examples/petstore/service.js)
 
 * http://localhost:3000/documentation will show the swagger UI, for comparison one could look
@@ -69,5 +114,11 @@ routes extracted from the [petstore example](examples/petstore/petstore-swagger.
 
 as the pet returned by service.js does not match the response schema.
 
+<a name="generatorExamples"></a>
+### Generator
+The folder [examples/generatedProject](examples/generatedProject) contains the result of running `swaggergen -l --baseDir=examples examples/petstore/petstore-swagger.v2.yaml`. The generated code can be started using `npm start` in `examples/generatedProject` (you will need to run `npm i` in the generated folder first)
+<a name="license"></a>
+
+
 # License
-MIT
+Licensed under MIT

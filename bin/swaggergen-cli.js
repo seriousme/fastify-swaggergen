@@ -1,5 +1,7 @@
+#!/usr/bin/env node
+
 const path = require("path");
-const Generator = require("./lib/generator");
+const Generator = require("../lib/generator");
 const argvParser = require("minimist");
 
 function usage() {
@@ -19,7 +21,7 @@ Options:
                               This directory must already exist.
                               [default: "."]
  
- The following options are only usefull for testing the plugin:
+ The following options are only usefull for testing the swaggergen plugin:
   -c --checksumOnly           Don't generate the project on disk but
                               return checksums only. 
   -l --localPlugin            Use a local path to the plugin. 
