@@ -13,7 +13,7 @@
   "author": "Hans Klunder",
   "license": "MIT",
   "bin": {
-    "swaggergen": "./swaggergen-cli.js"
+    "swaggergen": "./bin/swaggergen-cli.js"
   },
   "dependencies": {
     "ajv-oai": "^1.1.1",
