@@ -62,6 +62,10 @@ See the [generator examples](#examples) section for a demo.
                               This directory must already exist.
                               [default: "."]
 
+The following options are only usefull for testing the swaggergen plugin:
+  -c --checksumOnly           Don't generate the project on disk but
+                              return checksums only.
+  -l --localPlugin            Use a local path to the plugin.
 ```
 See the [generator example](#generatorExamples) section for a demo.
 
@@ -112,7 +116,7 @@ as the pet returned by service.js does not match the response schema.
 
 <a name="generatorExamples"></a>
 ### Generator
-The folder [examples/generatedProject](examples/generatedProject) contains the result of running `swaggergen --baseDir=examples examples/petstore/petstore-swagger.v2.yaml`. The generated code can be started using `npm start` in `examples/generatedProject` (you will need to run `npm i` in the generated folder first)
+The folder [examples/generatedProject](examples/generatedProject) contains the result of running `swaggergen -l --baseDir=examples examples/petstore/petstore-swagger.v2.yaml`. The generated code can be started using `npm start` in `examples/generatedProject` (you will need to run `npm i` in the generated folder first)
 <a name="license"></a>
 
 
