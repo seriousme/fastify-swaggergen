@@ -8,13 +8,13 @@
       "fileName": "service.js",
       "checksum": "a835c7ae15daa37748f2b45fec01fceec9231e599d938ac417e3d9c737531419"
     },
-    "cliRunner": {
-      "fileName": "cli-runner.js",
-      "checksum": "80852d699947c8bad98cea1ba577fc8e870fbd0be9e414aa0f0933617f118148"
+    "plugin": {
+      "fileName": "index.js",
+      "checksum": "f5073b54a4c1cf6cbc060cbd4918614b96ae352dfbae57aed944b453c9ad7071"
     },
     "package": {
       "fileName": "package.json",
-      "checksum": "17d8474082fae38f160d1f6d2cfa53c3f481d5c295d15835c74b1a75127eb570"
+      "checksum": "3a8a44130c2d23485be1d66e396ef7037a0bed5513dc9d88edfe2666cd153a38"
     },
     "readme": {
       "fileName": "README.md",
@@ -22,7 +22,7 @@
     },
     "testPlugin": {
       "fileName": "test-plugin.js",
-      "checksum": "e476ea0f7a3000eb68b97063618ba11a6f45144427a5187bf025685ebfb17b05"
+      "checksum": "edb5994a874789796dc571168b72a84c1b437550ea9a9d9d7ba09b23e945abd8"
     }
   }
 }
