@@ -1,14 +1,14 @@
 {
   "name": "fastify-swaggergen",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "generate a fastify configuration from a swagger specification",
   "main": "index.js",
   "scripts": {
     "start": "fastify start examples/petstore/plugin.js",
     "test": "tap test/test-*.js",
     "dev": "fastify start -l info -P examples/petstore/plugin.js",
-    "updateChecksums": "node swaggergen-cli -c test/test-swagger.v2.json > test/test-swagger.v2.checksums.json",
-    "postupdateChecksums": "node swaggergen-cli -c test/test-swagger-noBasePath.v2.json > test/test-swagger-noBasePath.v2.checksums.json"
+    "updateChecksums": "node bin/swaggergen-cli -c test/test-swagger.v2.json > test/test-swagger.v2.checksums.json",
+    "postupdateChecksums": "node bin/swaggergen-cli -c test/test-swagger-noBasePath.v2.json > test/test-swagger-noBasePath.v2.checksums.json"
   },
   "author": "Hans Klunder",
   "license": "MIT",

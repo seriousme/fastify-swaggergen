@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const path = require("path");
-const Generator = require("./lib/generator");
+const Generator = require("../lib/generator");
 const argvParser = require("minimist");
 
 function usage() {
