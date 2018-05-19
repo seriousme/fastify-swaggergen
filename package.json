@@ -12,7 +12,7 @@
   },
   "author": "Hans Klunder",
   "license": "MIT",
-  "bin":{
+  "bin": {
     "swaggergen": "./generate.js"
   },
   "dependencies": {
