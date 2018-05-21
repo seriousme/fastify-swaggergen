@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/seriousme/fastify-swaggergen.svg?branch=master)](https://travis-ci.org/seriousme/fastify-swaggergen)
 [![Greenkeeper badge](https://badges.greenkeeper.io/seriousme/fastify-swaggergen.svg)](https://greenkeeper.io/)
 
-A plugin for [fastify](https://www.fastify.io) to autogenerate a configuration based on a [Swagger](https://swagger.io/)v2 specification.
+A plugin for [fastify](https://www.fastify.io) to autogenerate a configuration based on a [Swagger](https://swagger.io/) (v2) specification.
 
 <a name="install"></a>
 ## Install: 
@@ -36,6 +36,8 @@ All schema and routes will be taken from the Swagger specification listed in the
   - `swaggerSpec`: this can be a JSON object, or the name of a JSON or YAML file containing a valid Swagger (v2) file 
   - `service`: this can be a javascript object or class, or the name of a javascript file containing such an object. If the import of the file results in a function instead of an object then the function will be executed during import.
   - `fastifySwagger`: an object containing the options for the [fastify-swagger](https://github.com/fastify/fastify-swagger) plugin. To avoid registering this plugin pass `{ fastifySwagger: { disabled: true }}`
+
+Of these options `swaggerSpec` and `service` are mandatory, `fastifySwagger` is optional.
 
 See the [examples](#examples) section for a demo.
 <a name="generator"></a>
@@ -121,4 +123,4 @@ The folder [examples/generatedProject](examples/generatedProject) contains the r
 
 
 # License
-Licensed under MIT
+Licensed under [MIT](license.txt)
