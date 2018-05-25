@@ -50,7 +50,11 @@ To make life even more easy there is the `swaggergen` cli. The `swaggergen` cli 
 ```
   swaggergen [options] <swagger specification>
 ```
-Generate a project based on the provided swagger specification.
+or if you don't have `swaggergen` installed:
+```
+  npx github:seriousme/fastify-swaggergen <swagger specification>
+```
+This will generate a project based on the provided swagger specification.
 Any existing files in the project folder will be overwritten!
 See the [generator examples](#examples) section for a demo.
 <a name="generatorOptions"></a>
