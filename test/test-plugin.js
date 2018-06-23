@@ -4,7 +4,8 @@ const Fastify = require("fastify");
 const fastifySwaggerGen = require("../index");
 
 const swaggerSpec = require("./test-swagger.v2.json");
-const petStoreSpec = require("./petstore-swagger.v2.json");
+const petStoreSpecV2 = require("./petstore-swagger.v2.json");
+const petStoreSpecV3 = require("./petstore-openapi.v3.json");
 const serviceFile = `${__dirname}/service.js`;
 const swaggerInfoFile = `${__dirname}/test-swagger-info.v2.json`;
 const swaggerSpecYAML = `${__dirname}/test-swagger.v2.yaml`;
@@ -43,8 +44,13 @@ const infoOpts = {
   service: serviceFile
 };
 
-const petStoreOpts = {
-  swaggerSpec: petStoreSpec,
+const petStoreV2Opts = {
+  swaggerSpec: petStoreSpecV2,
+  service
+};
+
+const petStoreV3Opts = {
+  swaggerSpec: petStoreSpecV3,
   service
 };
 
@@ -219,7 +225,7 @@ test("invalid swagger specification throws error ", t => {
     if (err) {
       t.equal(
         err.message,
-        "'swaggerSpec' parameter must contain a swagger version 2.0 specification",
+        "'swaggerSpec' parameter must contain a valid version 2.0 or 3.0.0 specification",
         "got expected error"
       );
     } else {
@@ -258,10 +264,23 @@ test("invalid service definition throws error ", t => {
   });
 });
 
-test("full swagger pet store definition does not throw error ", t => {
+test("full pet store V2 definition does not throw error ", t => {
   t.plan(1);
   const fastify = Fastify();
-  fastify.register(fastifySwaggerGen, petStoreOpts);
+  fastify.register(fastifySwaggerGen, petStoreV2Opts);
+  fastify.ready(err => {
+    if (err) {
+      t.fail("got unexpected error");
+    } else {
+      t.pass("no unexpected error");
+    }
+  });
+});
+
+test("full pet store V3 definition does not throw error ", t => {
+  t.plan(1);
+  const fastify = Fastify();
+  fastify.register(fastifySwaggerGen, petStoreV3Opts);
   fastify.ready(err => {
     if (err) {
       t.fail("got unexpected error");
