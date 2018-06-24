@@ -2,7 +2,7 @@
 const swaggerGen = require("../../index.js");
 
 const options = {
-  swaggerSpec: `${__dirname}/swagger.json`,
+  swaggerSpec: `${__dirname}/openApi.json`,
   service: `${__dirname}/service.js`,
   fastifySwagger: {
     disabled: false

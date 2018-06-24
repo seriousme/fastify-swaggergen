@@ -1,7 +1,7 @@
 {
   "files": {
-    "swagger": {
-      "fileName": "swagger.json",
+    "spec": {
+      "fileName": "openApi.json",
       "checksum": "3d6eea0625207d859fed989f45ee6ff43fe968a459e58b07556b8cf4cf58d2c4"
     },
     "service": {
@@ -10,7 +10,7 @@
     },
     "plugin": {
       "fileName": "index.js",
-      "checksum": "f5073b54a4c1cf6cbc060cbd4918614b96ae352dfbae57aed944b453c9ad7071"
+      "checksum": "dc65b7ae3846e6d08dd8cc721219df3bef0c587f22e98478db9ced5f9f09781f"
     },
     "package": {
       "fileName": "package.json",
@@ -18,11 +18,11 @@
     },
     "readme": {
       "fileName": "README.md",
-      "checksum": "7a53d0b140af852b8627aeb27d563c45f759ee1222da6b2c422a2b9aa10eb888"
+      "checksum": "cc132cd02aa2b56485185f6bd4606dd2e0b7e4a511c42f582bd08830c2cf217c"
     },
     "testPlugin": {
       "fileName": "test-plugin.js",
-      "checksum": "dcb1c57ff58ea9a7de3447dc93e2c628000ab32701f9ecbf9f3a6a0c9b8c55af"
+      "checksum": "fadb7c4871f4be4e3f33a094060079b469ed6f0f02730a3a9a3439204cba48f1"
     }
   }
 }
