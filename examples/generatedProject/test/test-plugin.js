@@ -7,7 +7,7 @@ const test = t.test;
 const Fastify = require("fastify");
 const fastifyPlugin = require("../index.js");
 
-const swaggerSpec = "../swagger.json";
+const swaggerSpec = "../openApi.json";
 const service = require("../service.js");
 
 const opts = {

@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/seriousme/fastify-swaggergen.svg?branch=master)](https://travis-ci.org/seriousme/fastify-swaggergen)
 [![Greenkeeper badge](https://badges.greenkeeper.io/seriousme/fastify-swaggergen.svg)](https://greenkeeper.io/)
 
-A plugin for [fastify](https://www.fastify.io) to autogenerate a configuration based on a [Swagger](https://swagger.io/) (v2) specification.
+A plugin for [fastify](https://www.fastify.io) to autogenerate a configuration based on a [OpenApi](https://www.openapis.org/)(v2/v3) specification.
 
 <a name="install"></a>
 ## Install: 
@@ -30,10 +30,10 @@ const options = {
 fastify.register(swaggerGen, options);
 ```
 
-All schema and routes will be taken from the Swagger specification listed in the options. No need to specify them in your code. 
+All schema and routes will be taken from the OpenApispecification listed in the options. No need to specify them in your code. 
 <a name="pluginOptions"></a>
 ### Options
-  - `swaggerSpec`: this can be a JSON object, or the name of a JSON or YAML file containing a valid Swagger (v2) file 
+  - `swaggerSpec`: this can be a JSON object, or the name of a JSON or YAML file containing a valid OpenApi(v2/v3) file 
   - `service`: this can be a javascript object or class, or the name of a javascript file containing such an object. If the import of the file results in a function instead of an object then the function will be executed during import.
   - `fastifySwagger`: an object containing the options for the [fastify-swagger](https://github.com/fastify/fastify-swagger) plugin. To avoid registering this plugin pass `{ fastifySwagger: { disabled: true }}`
 
@@ -43,18 +43,18 @@ See the [examples](#examples) section for a demo.
 <a name="generator"></a>
 ## Generator
 
-To make life even more easy there is the `swaggergen` cli. The `swaggergen` cli takes a valid Swagger (v2) file (JSON or YAML) and generates a project including a fastify flugin that you can use on any fastify server, a stub of the service class and a skeleton of a test harness to test the plugin. 
+To make life even more easy there is the `swaggergen` cli. The `swaggergen` cli takes a valid OpenApi (v2/v3) file (JSON or YAML) and generates a project including a fastify flugin that you can use on any fastify server, a stub of the service class and a skeleton of a test harness to test the plugin. 
 
 <a name="generatorUsage"></a>
 ### Usage
 ```
-  swaggergen [options] <swagger specification>
+  swaggergen [options] <OpenApi specification>
 ```
 or if you don't have `swaggergen` installed:
 ```
-  npx github:seriousme/fastify-swaggergen <swagger specification>
+  npx github:seriousme/fastify-swaggergen <OpenApi specification>
 ```
-This will generate a project based on the provided swagger specification.
+This will generate a project based on the provided OpenApi specification.
 Any existing files in the project folder will be overwritten!
 See the [generator examples](#examples) section for a demo.
 <a name="generatorOptions"></a>
