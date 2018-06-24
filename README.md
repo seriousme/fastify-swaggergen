@@ -30,7 +30,7 @@ const options = {
 fastify.register(swaggerGen, options);
 ```
 
-All schema and routes will be taken from the OpenApispecification listed in the options. No need to specify them in your code. 
+All schema and routes will be taken from the OpenApi specification listed in the options. No need to specify them in your code. 
 <a name="pluginOptions"></a>
 ### Options
   - `swaggerSpec`: this can be a JSON object, or the name of a JSON or YAML file containing a valid OpenApi(v2/v3) file 
