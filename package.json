@@ -1,6 +1,6 @@
 {
   "name": "fastify-swaggergen",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "generate a fastify configuration from a swagger specification",
   "main": "index.js",
   "scripts": {
