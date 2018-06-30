@@ -4,6 +4,12 @@
 
 A plugin for [fastify](https://www.fastify.io) to autogenerate a configuration based on a [OpenApi](https://www.openapis.org/)(v2/v3) specification.
 
+
+----
+# This project has been replaced by [Fastify OpenApi Glue](https://github.com/seriousme/fastify-openapi-glue)
+
+----
+
 <a name="install"></a>
 ## Install: 
 ```
