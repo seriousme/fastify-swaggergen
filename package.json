@@ -17,11 +17,11 @@
   },
   "dependencies": {
     "ajv-oai": "^1.1.1",
-    "fastify-plugin": "^1.0.1",
-    "fastify-swagger": "^0.12.0",
-    "js-yaml": "^3.11.0",
+    "fastify-plugin": "^1.5.0",
+    "fastify-swagger": "^2.3.2",
+    "js-yaml": "^3.13.0",
     "minimist": "^1.2.0",
-    "swagger-parser": "^5.0.0"
+    "swagger-parser": "^6.0.5"
   },
   "directories": {
     "example": "./examples",
@@ -30,9 +30,9 @@
     "bin": "./bin"
   },
   "devDependencies": {
-    "fastify": "^1.4.0",
-    "fastify-cli": "^0.16.0",
-    "tap": "^12.0.0"
+    "fastify": "^2.1.0",
+    "fastify-cli": "^1.0.0",
+    "tap": "^12.6.1"
   },
   "repository": {
     "type": "git",
